@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.lenovo.smartreaderapplication.Login"
+        tools:layout_editor_absoluteY="16dp"
+        tools:layout_editor_absoluteX="16dp"
+        android:background="@color/white"
+
+        >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="99dp"
+            android:layout_marginTop="50dp"
+            app:srcCompat="@drawable/logoo" />
+
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:drawableLeft="@mipmap/ic_p"
+            android:hint="@string/Username"
+            android:inputType="textVisiblePassword|textNoSuggestions" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/ic_lock"
+            android:inputType="textPassword"
+            android:hint="@string/Password"/>
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/yellow"
+            android:background="@color/gray"
+            android:text="@string/Login" />
+
+        <Button
+            android:id="@+id/done"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow"
+            android:text="@string/Signup"
+            android:textColor="@color/gray" />
+
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="31dp"
+            android:textColor="@color/pureBlue"
+            android:layout_marginLeft="10dp"
+            android:text="@string/ForgotYourPassword"/>
+    </LinearLayout>
+</RelativeLayout>
+

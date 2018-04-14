@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="FirstName" type="id">FirstName</item>
+    <item name="LastName" type="id">LastName</item>
+    <item name="done" type="id">Done</item>
+    <item name="phone" type="id">phone</item>
+    <item name="email" type="id">email</item>
+    <item name="confiemPassword" type="id">confirmPassword</item>
+    <item name="signupDone" type="id">done</item>
+
+
+</resources>
