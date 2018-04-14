@@ -62,6 +62,8 @@ AwesomeValidation awesomeValidation;
         Email =(EditText) findViewById(R.id.email);
         username =(EditText) findViewById(R.id.username);
         button = (Button) findViewById(R.id.done);
+        String hello ="HELLO";
+
 
         String regexPassword = "(?=.*[a-z])(?=.*[A-Z](?=.*[\\d)(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\{\\}\\[\\]\\|\\;:\"<>,./\\?])";
         String regexUsernme ="(?=.*[a-z])(?=.*[A-Z](?=.*[\\d)(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\{\\}\\[\\]\\|\\;:\"<>,./\\?])";
