@@ -62,18 +62,18 @@ AwesomeValidation awesomeValidation;
         Email =(EditText) findViewById(R.id.email);
         username =(EditText) findViewById(R.id.username);
         button = (Button) findViewById(R.id.done);
-        String hello ="HELLO";
 
 
-        String regexPassword = "(?=.*[a-z])(?=.*[A-Z](?=.*[\\d)(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\{\\}\\[\\]\\|\\;:\"<>,./\\?])";
-        String regexUsernme ="(?=.*[a-z])(?=.*[A-Z](?=.*[\\d)(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\{\\}\\[\\]\\|\\;:\"<>,./\\?])";
+
+        String validatePassword = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
+        String validateUsernme ="((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})";
         awesomeValidation.addValidation(Signup.this,R.id.FirstName,"[a-zA-Z\\s]+",R.string.Vfname);
         awesomeValidation.addValidation(Signup.this,R.id.LastName,"[a-zA-Z\\s]+",R.string.Vlname);
         awesomeValidation.addValidation(Signup.this,R.id.email, Patterns.EMAIL_ADDRESS,R.string.Vemail);
         awesomeValidation.addValidation(Signup.this,R.id.phone, RegexTemplate.TELEPHONE,R.string.Vphone);
-        awesomeValidation.addValidation(Signup.this,R.id.password,regexPassword,R.string.Vpassword);
-        awesomeValidation.addValidation(Signup.this,R.id.confiemPassword,regexPassword,R.string.VCpassword);
-        awesomeValidation.addValidation(Signup.this,R.id.username,regexUsernme,R.string.VUname);
+        awesomeValidation.addValidation(Signup.this,R.id.password,validatePassword,R.string.Vpassword);
+        awesomeValidation.addValidation(Signup.this,R.id.confiemPassword,R.id.password,R.string.VCpassword);
+        awesomeValidation.addValidation(Signup.this,R.id.username,validateUsernme,R.string.VUname);
 
 
 

@@ -80,13 +80,15 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/ic_lock"
                 android:hint="@string/Password"
-                android:inputType="textVisiblePassword|textNoSuggestions" />
+                android:inputType="textPassword"
+                />
             <EditText
                 android:id="@id/confiemPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/ConfirmPassword"
-                android:inputType="textVisiblePassword|textNoSuggestions"
+                android:inputType="textPassword"
+
                 android:drawableLeft="@mipmap/ic_lock" />
 
             <Button

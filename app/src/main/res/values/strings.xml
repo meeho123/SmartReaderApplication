@@ -30,10 +30,26 @@
     <string name="done">Done</string>
 
 
+
+
+
     <string name="Vfname">Enter your First Name</string>
     <string name="Vlname">Enter your Last Lame</string>
-    <string name="VUname">Enter your User Name</string>
-    <string name="Vpassword">Enter your Password</string>
+    <string name="VUname"></string>
+    #   must contains one digit from 0-9
+    #   must contains one lowercase characters
+    #   must contains one uppercase characters
+    #   length at least 6 characters and maximum of 20
+
+    <string name="Vpassword">
+            #   must contains one digit from 0-9
+    		#   must contains one lowercase characters
+    		#   must contains one uppercase characters
+            #   must contains one special symbols in the list "@#$%"
+            #   length at least 6 characters and maximum of 20
+
+
+    </string>
     <string name="VCpassword">Confirm your password</string>
     <string name="Vemail">Enter your Email</string>
     <string name="Vphone">Enter your phone number</string>
