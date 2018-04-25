@@ -8,19 +8,65 @@
     tools:context="com.example.lenovo.smartreaderapplication.MainActivity"
     tools:showIn="@layout/activity_main">
 
-
+    <LinearLayout
+        android:id="@+id/liOne"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="vertical" />
     <TextView
         android:id="@+id/testText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/viewTest"
         android:textColor="@color/gray"
-        />
+        android:textAlignment="center"
+     />
 
-
-    <ImageView
-        android:id="@+id/ivImage"
+    <LinearLayout
+        android:id="@+id/liTwo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="44dp"
+        android:layout_marginTop="50dp"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/viewWord"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:textColor="@color/pureBlue"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+
+
+        android:id="@+id/liThree"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:contentDescription="@string/image"
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/testing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="395dp"
+        android:textColor="@color/yellow"
+        android:background="@color/gray"
+        android:text="@string/testing" />
+
+
+
 
 </RelativeLayout>

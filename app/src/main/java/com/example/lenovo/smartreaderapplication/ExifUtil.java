@@ -13,7 +13,10 @@ import java.lang.reflect.Method;
 
 
 public class ExifUtil  {
-
+    //ExifUtils An utility class that's used to correctly the orientation of the photo selected from Content or sd-storage.
+    /**
+     * Exif is short for "Exchangeable image file format".
+     */
     public static Bitmap rotateBitmap(String src, Bitmap bitmap) {
         try {
             int orientation = getExifOrientation(src);

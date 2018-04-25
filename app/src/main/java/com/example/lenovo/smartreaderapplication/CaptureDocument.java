@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,108 +17,51 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.SurfaceHolder;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.content.pm.PackageManager;
-import android.hardware.camera2.*;
-import android.content.UriPermission;
-import android.widget.TextView;
-
-import java.io.FileOutputStream;
-import java.util.Random;
-import java.util.Scanner;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class CaptureDocument extends AppCompatActivity {
+   // ImageView ivImage;
     String userChoosenTask;
-    ImageView ivImage;
-    TextView textView;
-    Button  button;
-    int numberArrayPointer=0;
-   public static String[] testNumbers = new String[]{"5","7"};
-
-    private static final int REQUEST_CAMERA = 1337;
-    private static final int SELECT_FILE = 2;
-
-
-
-
-
-        // android.hardware.Camera camera ;
+   // private static final int REQUEST_CAMERA = 1337;
+   // private static final int SELECT_FILE = 2;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        textView = (TextView)findViewById(R.id.viewWord);
-        Button button= (Button) findViewById(R.id.testing);
-
-
-        textView.setText("1");
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               // System.out.println("------------------h-----------------------"); this is for just testing !
-                ArraysNumbers();
-
-
-            }
-        });
-       // String [] testNumbers = new String []{"1", "5", "7"};
-      //  textView = (TextView)findViewById(R.id.viewWord);
-
-
-
-
-
-
-
+        setContentView(R.layout.activity_capture_document);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ivImage = (ImageView) findViewById(R.id.ivImage);
+        //ivImage = (ImageView) findViewById(R.id.ivImage);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             /*   Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show(); */
-                SelectImage();
 
-
+                //   SelectImage();
+                // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //     .setAction("Action", null).show();
             }
         });
-    }
+    }}
 
 
-    private void  ArraysNumbers() {
-
-        while(numberArrayPointer!=testNumbers.length) {
-            textView.setText(testNumbers[numberArrayPointer]);
-            numberArrayPointer++;
-            break;
-
-        }
-    }
-    private void SelectImage() {
+    /*private void SelectImage() {
         final CharSequence[] items = {"Camera", "Gallery", "Cancel"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(CaptureDocument.this);
         builder.setTitle("Add Image");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                boolean result = Utility.checkPermission(MainActivity.this);
+                boolean result = Utility.checkPermission(CaptureDocument.this);
                 if (items[i].equals("Camera")) {
                     userChoosenTask = "Take Photo";
                     if (result)
@@ -135,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
         });
         builder.show();
     }
-
+*/
+    /*
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -195,38 +139,38 @@ public class MainActivity extends AppCompatActivity {
     }
     */
 
-/*
+    /*
 
-    @SuppressWarnings("deprecation")
+        @SuppressWarnings("deprecation")
 
-    private void onSelectFromGalleryResult(Intent data) {
-        Uri selectedImageUri = data.getData();
-        String[] projection = { MediaStore.MediaColumns.DATA };
-        Cursor cursor = managedQuery(selectedImageUri, projection, null, null,
-                null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-        cursor.moveToFirst();
+        private void onSelectFromGalleryResult(Intent data) {
+            Uri selectedImageUri = data.getData();
+            String[] projection = { MediaStore.MediaColumns.DATA };
+            Cursor cursor = managedQuery(selectedImageUri, projection, null, null,
+                    null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+            cursor.moveToFirst();
 
-        String selectedImagePath = cursor.getString(column_index);
+            String selectedImagePath = cursor.getString(column_index);
 
-        Bitmap bm;
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(selectedImagePath, options);
-        final int REQUIRED_SIZE = 200;
-        int scale = 1;
-        while (options.outWidth / scale / 2 >= REQUIRED_SIZE
-                && options.outHeight / scale / 2 >= REQUIRED_SIZE)
-            scale *= 2;
-        options.inSampleSize = scale;
-        options.inJustDecodeBounds = false;
-        bm = BitmapFactory.decodeFile(selectedImagePath, options);
+            Bitmap bm;
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(selectedImagePath, options);
+            final int REQUIRED_SIZE = 200;
+            int scale = 1;
+            while (options.outWidth / scale / 2 >= REQUIRED_SIZE
+                    && options.outHeight / scale / 2 >= REQUIRED_SIZE)
+                scale *= 2;
+            options.inSampleSize = scale;
+            options.inJustDecodeBounds = false;
+            bm = BitmapFactory.decodeFile(selectedImagePath, options);
 
-        ivImage.setImageBitmap(bm);
-    }
+            ivImage.setImageBitmap(bm);
+        }
 
-*/
-    private void onSelectFromGalleryResult(Intent data) {
+    */
+    /*private void onSelectFromGalleryResult(Intent data) {
         Bitmap bm = null;
         if (data != null) {
             try {
@@ -237,42 +181,43 @@ public class MainActivity extends AppCompatActivity {
         }
         ivImage.setImageBitmap(bm);
     }
+    */
 
-  /* private void onCaptureImageResult(Intent data) {
+    /* private void onCaptureImageResult(Intent data) {
+          Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+
+          // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
+          Uri tempUri = getImageUri(getApplicationContext(), thumbnail);
+
+          // CALL THIS METHOD TO GET THE ACTUAL PATH
+          File finalFile = new File(getRealPathFromURI(tempUri));
+          Bitmap finalimg = ExifUtil.rotateBitmap(finalFile.toString(), thumbnail);
+          ImageView ivImage = (ImageView) findViewById(R.id.ivImage);
+          ivImage.setImageBitmap(thumbnail);
+      }
+      */
+   /* private void onCaptureImageResult(Intent data) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        thumbnail.compress(Bitmap.CompressFormat.JPEG, 200, bytes);
 
-        // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
-        Uri tempUri = getImageUri(getApplicationContext(), thumbnail);
+        File destination = new File(Environment.getExternalStorageDirectory(),
+                System.currentTimeMillis() + ".jpg");
 
-        // CALL THIS METHOD TO GET THE ACTUAL PATH
-        File finalFile = new File(getRealPathFromURI(tempUri));
-        Bitmap finalimg = ExifUtil.rotateBitmap(finalFile.toString(), thumbnail);
-        ImageView ivImage = (ImageView) findViewById(R.id.ivImage);
+        FileOutputStream fo;
+        try {
+            destination.createNewFile();
+            fo = new FileOutputStream(destination);
+            fo.write(bytes.toByteArray());
+            fo.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         ivImage.setImageBitmap(thumbnail);
     }
-    */
-  private void onCaptureImageResult(Intent data) {
-      Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-      ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-      thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-
-      File destination = new File(Environment.getExternalStorageDirectory(),
-              System.currentTimeMillis() + ".jpg");
-
-      FileOutputStream fo;
-      try {
-          destination.createNewFile();
-          fo = new FileOutputStream(destination);
-          fo.write(bytes.toByteArray());
-          fo.close();
-      } catch (FileNotFoundException e) {
-          e.printStackTrace();
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
-
-      ivImage.setImageBitmap(thumbnail);
-  }
 
     public void decodeFile(String filePath) {
 
@@ -328,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
     }
     */
 
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
+    /*public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
@@ -348,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+*/
 
 /*@Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -474,3 +419,4 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 */
+

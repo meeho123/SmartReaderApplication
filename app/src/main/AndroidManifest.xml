@@ -25,6 +25,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/logoo"
+        android:noHistory="false"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -37,21 +38,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
-
-        <activity android:name=".Signup"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
-
-        </activity>
-
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-    android:label="@string/app_name">
-    </activity>
-
+        <activity
+            android:name=".Signup"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CaptureDocument"
+            android:label="@string/title_activity_capture_document"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UserFiles"
+            android:label="@string/title_activity_user_files"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Libraries"
+            android:label="@string/title_activity_libraries"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
