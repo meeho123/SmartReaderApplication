@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Signup"
+            android:name=".RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"

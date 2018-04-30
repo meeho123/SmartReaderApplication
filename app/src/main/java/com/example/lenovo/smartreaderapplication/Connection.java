@@ -1,12 +1,27 @@
 package com.example.lenovo.smartreaderapplication;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
+import org.json.JSONObject;
+
+import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -95,7 +110,4 @@ public class Connection {
         catch (IOException ioex){
             Log.e("Debug", "error: " + ioex.getMessage(), ioex);
         }
-    }
-}
-
-
+    }}

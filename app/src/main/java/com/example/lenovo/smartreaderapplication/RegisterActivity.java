@@ -7,13 +7,13 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 
 import org.json.JSONObject;
 
@@ -34,116 +35,79 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Login extends BaseActivity  implements AsyncResponse {
-Button btnLogin,btnSignup;
-EditText password;
+/**
+ * A login screen that offers login via email/password.
+ */
+@SuppressLint("Registered")
+public class RegisterActivity extends BaseActivity implements AsyncResponse{
 
-    final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+
+
+    // Message for MainActivity
+    //public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     // Auth related stuff
-    private static final String AUTH_TOKEN_URL = "http://192.168.1.10:8000/api-token-auth/";
-    private UserLoginTask mAuthTask = null;
+    private static final String AUTH_TOKEN_URL = "http://192.168.1.10:8000/uusapp/register/";
+    private static final String SUCCESS_MESSAGE =  "Successful result";
+    private static final String FAILURES_MESSAGE =  "Something went wrong please try later";
+    AwesomeValidation awesomeValidation;
+    private UserRegisterTask mAuthTask = null;
+    EditText username,Fname,Lname,Email,phone,password,confirmPassword;
 
-
-
-    // UI refe
-    //
-    //
-    //
-    //    // Message for MainActivity
-    //    publicrences.
+    // UI references.
     private static final String L_TAG = Login.class.getSimpleName();
     private EditText etUsername;
     private EditText etPassword;
+    private EditText etEmail;
+    private EditText etFirstname;
+    private EditText etLastname;
+    private EditText etPhoneNo;
+    private EditText etconfirmedPassword;
     private View mProgressView;
     private View mLoginFormView;
     private TextView tvTest;
+    private Button bRegister;
 
-
-    @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
+        setContentView(R.layout.activity_signup);
         // Set up the login form.
-        etUsername = (EditText) findViewById(R.id.user_name);
+        etUsername = (EditText) findViewById(R.id.username);
         etPassword = (EditText) findViewById(R.id.password);
-
-
-        etPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        etEmail = (EditText) findViewById(R.id.email);
+        etconfirmedPassword = (EditText) findViewById(R.id.confiemPassword);
+        etFirstname = (EditText) findViewById(R.id.FirstName);
+        etLastname = (EditText) findViewById(R.id.LastName);
+        etPhoneNo=(EditText)findViewById(R.id.phone);
+        etconfirmedPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    startRegister();
                     return true;
                 }
                 return false;
             }
         });
 
-        @SuppressLint("CutPasteId") Button bSignIn = (Button) findViewById(R.id.sign_in_button);
-        bSignIn.setOnClickListener(new View.OnClickListener() {
+        bRegister = (Button) findViewById(R.id.done);
+        bRegister.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                startRegister();
             }
         });
-        @SuppressLint("CutPasteId") Button bRegister = (Button) findViewById(R.id.register_button);
-        bRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                initiateRegister();
-            }
-        });
+
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         tvTest = (TextView) findViewById(R.id.returned_token);
 
-//
-//        btnLogin = (Button) findViewById(R.id.l);
-//        btnLogin.setOnClickListener(new View.OnClickListener() {
-//            @SuppressLint("ShowToast")
-//            @Override
-//            public void onClick(View v) {
-//
-//
-//               if(awesomeValidation.validate())
-//
-//            {
-//                Toast.makeText(Login.this, "Data Received  Successfully", Toast.LENGTH_SHORT);
-//                Intent intent = new Intent(Login.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//            else
-//
-//            {
-//                Toast.makeText(Login.this, "Error", Toast.LENGTH_SHORT);
-//
-//            }
-//
-//        }
-//            });
-//        btnSignup = (Button) findViewById(R.id.done);
-//        btnSignup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(Login.this,Signup.class);
-//                startActivity(intent);
-//
-//            }
-//        });
-    }
-
-
-    public void initiateRegister(){
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
     }
 
 
 
-    private void attemptLogin() {
+    private void startRegister() {
         // If user is not very patient
         if (mAuthTask != null) {
             return;
@@ -156,50 +120,107 @@ EditText password;
         // Store values at the time of the login attempt.
         String username = etUsername.getText().toString();
         String password = etPassword.getText().toString();
+        String email = etEmail.getText().toString();
+        String firstname = etFirstname.getText().toString();
+        String lastname = etLastname.getText().toString();
+        String confirmpass = etconfirmedPassword.getText().toString();
+        String phoneNo = etPhoneNo.getText().toString();
+
+
+
 
         boolean cancel = false;
-        View focusView = null;
+        View focusView1 = null;
+        View focusView2 = null;
+        View focusView3 = null;
+        View focusView4 = null;
+        View focusView5 = null;
+        View focusView6 = null;
+        View focusView7 = null;
+        View focusView8 = null;
+
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             etPassword.setError(getString(R.string.error_invalid_password));
-            focusView = etPassword;
+             focusView1 = etPassword;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(username)) {
             etUsername.setError(getString(R.string.error_field_required));
-            focusView = etUsername;
+             focusView2 = etUsername;
             cancel = true;
         }
+        if (TextUtils.isEmpty(email)) {
+            etEmail.setError(getString(R.string.error_field_required));
+             focusView3 = etEmail;
+            cancel = true;
+        }
+        if (TextUtils.isEmpty(password)) {
+            etPassword.setError(getString(R.string.error_field_required));
+             focusView4 = etPassword;
+            cancel = true;
+        }
+        if (TextUtils.isEmpty(confirmpass)) {
+            etconfirmedPassword.setError(getString(R.string.error_field_required));
+             focusView5 = etconfirmedPassword;
+            cancel = true;
+        }
+        if (TextUtils.isEmpty(firstname)) {
+            etFirstname.setError(getString(R.string.error_field_required));
+             focusView6 = etFirstname;
+            cancel = true;
+        }
+        if (TextUtils.isEmpty(lastname)) {
+            etLastname.setError(getString(R.string.error_field_required));
+             focusView7 = etLastname;
+            cancel = true;
+        }
+        if (TextUtils.isEmpty(phoneNo)) {
+            etPhoneNo.setError(getString(R.string.error_field_required));
+             focusView8 = etPhoneNo;
+            cancel = true;
+        }
+
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
-            focusView.requestFocus();
+            if(focusView1!=null)      focusView1.requestFocus();
+            if(focusView2!=null) focusView2.requestFocus();
+            if(focusView3!=null) focusView3.requestFocus();
+            if(focusView4!=null) focusView4.requestFocus();
+            if(focusView5!=null) focusView5.requestFocus();
+            if(focusView6!=null) focusView6.requestFocus();
+            if(focusView7!=null) focusView7.requestFocus();
+            if(focusView8!=null) focusView8.requestFocus();
+
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(username, password, this);
+            mAuthTask = new UserRegisterTask(username, password,email,firstname,lastname ,this);
             mAuthTask.execute((Void) null);
         }
     }
 
     @Override
-    public void processFinish(String token){
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, token);
-        startActivity(intent);
+    public void processFinish(String response) {
+        if (response == SUCCESS_MESSAGE) {
+
+            Intent intent = new Intent(this, Login.class);
+            startActivity(intent);
+
+        }else {
+            tvTest.setText(FAILURES_MESSAGE);
+        }
     }
-
-
-
-
     private boolean isPasswordValid(String password) {
-        return password.length()>4 ;
-
+       return password.length()>4;
     }
+
+
 
     /**
      * Shows the progress UI and hides the login form.
@@ -243,18 +264,26 @@ EditText password;
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, String> {
+    @SuppressLint("StaticFieldLeak")
+    public class UserRegisterTask extends AsyncTask<Void, Void, String> {
 
         private final String sUserName;
         private final String sPassWord;
+        private final String email ;
+        private final String firstname;
+        private final String lastname ;
         private Boolean success = false;
         public AsyncResponse delegate = null;
 
 
 
-        UserLoginTask(String sUserName, String sPassword , AsyncResponse delegate) {
+        UserRegisterTask(String sUserName, String sPassword, String email,
+                         String firstname, String lastname,AsyncResponse delegate) {
             this.sUserName = sUserName;
             this.sPassWord = sPassword;
+            this.email=email;
+            this.firstname = firstname;
+            this.lastname = lastname;
             this.delegate = delegate;
         }
 
@@ -279,7 +308,7 @@ EditText password;
             // web page content.
             int len = 500;
             try {
-                URL url = new URL(AUTH_TOKEN_URL); //AUTH_TOKEN_URL
+                URL url = new URL(AUTH_TOKEN_URL);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 Log.d(L_TAG, "url.openConnection");
                 conn.setReadTimeout(10000);
@@ -299,6 +328,7 @@ EditText password;
                 os.write(message.getBytes());
                 //
                 os.flush();
+                os.close();
                 //connect
                 conn.connect();
 
@@ -317,8 +347,9 @@ EditText password;
                     is.close();
                 }
                 String serverResponseMessage = conn.getResponseMessage();
+                System.out.println("---------------------"+serverResponseMessage+"-------------------------------");
                 int serverResponseCode =  conn.getResponseCode();
-                if(serverResponseCode == 200){
+                if(serverResponseCode == 201){
                     this.success = true;
                 }else {
                     Log.d(L_TAG, serverResponseMessage + " " + serverResponseCode);
@@ -330,8 +361,7 @@ EditText password;
             } catch (Exception ex) {
                 ex.printStackTrace();
                 Log.e(L_TAG,"Exeption");
-                return "";
-            }
+                return "";}
 
 
         }
@@ -349,21 +379,17 @@ EditText password;
 
 
 
+
         @Override
         protected void onPostExecute( String response )
         {
             mAuthTask = null;
             showProgress(false);
             if (this.success) {
-                String token = JSONfunctions.parseAuthToken(response);
-                if(token.length()>2){
-                    this.delegate.processFinish(token);
-                }
-
+                delegate.processFinish(SUCCESS_MESSAGE);
             } else {
                 Log.d(L_TAG, response);
-                etPassword.setError(getString(R.string.error_incorrect_password));
-                etPassword.requestFocus();
+                delegate.processFinish(FAILURES_MESSAGE);
             }
         }
 
@@ -373,5 +399,5 @@ EditText password;
             showProgress(false);
         }
     }
-
 }
+

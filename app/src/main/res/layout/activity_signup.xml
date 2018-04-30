@@ -10,6 +10,14 @@
         tools:context="com.example.lenovo.smartreaderapplication.Signup">
 
 
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/signTextView"
         android:layout_width="match_parent"
@@ -24,84 +32,104 @@
         android:textStyle="bold|italic" />
 
     <ScrollView
+        android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent">>
+
         <LinearLayout
+            android:id="@+id/user_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:weightSum="1">
+            android:orientation="vertical">>
 
-            <EditText
-                android:id="@id/username"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="49dp"
-                android:drawableLeft="@mipmap/ic_p"
-                android:hint="@string/Username"
-                android:inputType="textVisiblePassword|textNoSuggestions"
-                android:keyboardNavigationCluster="false" />
+                android:layout_height="match_parent">
 
-            <EditText
-                android:id="@id/FirstName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:drawableLeft="@mipmap/ic_p"
-                android:hint="@string/FirstName"
-                android:inputType="text"
-                 />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:weightSum="1">
 
-            <EditText
-                android:id="@id/LastName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/LastName"
-                android:inputType="text"
-                android:drawableLeft="@mipmap/ic_p" />
-            <EditText
-                android:id="@id/phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/PhoneNumber"
-                android:inputType="phone"
-                android:drawableLeft="@mipmap/ic_phone" />
-            <EditText
-                android:id="@id/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/Email"
-                android:inputType="textEmailAddress"
-                android:drawableLeft="@mipmap/ic_emaill" />
+                    <EditText
+                        android:id="@+id/username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="49dp"
+                        android:drawableLeft="@mipmap/ic_p"
+                        android:hint="@string/Username"
+                        android:inputType="textVisiblePassword|textNoSuggestions"
+                        android:keyboardNavigationCluster="false" />
 
-            <EditText
-                android:id="@id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@mipmap/ic_lock"
-                android:hint="@string/Password"
-                android:inputType="textPassword"
-                />
-            <EditText
-                android:id="@id/confiemPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/ConfirmPassword"
-                android:inputType="textPassword"
+                    <EditText
+                        android:id="@id/FirstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:drawableLeft="@mipmap/ic_p"
+                        android:hint="@string/FirstName"
+                        android:inputType="text" />
 
-                android:drawableLeft="@mipmap/ic_lock" />
+                    <EditText
+                        android:id="@id/LastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/ic_p"
+                        android:hint="@string/LastName"
+                        android:inputType="text" />
 
-            <Button
-                android:id="@+id/done"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="19dp"
-                android:layout_marginStart="110dp"
-                android:background="@color/gray"
-                android:text="@string/done"
-                android:textColor="@color/yellow"
-                android:layout_marginLeft="110dp" />
+                    <EditText
+                        android:id="@id/phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/ic_phone"
+                        android:hint="@string/PhoneNumber"
+                        android:inputType="phone" />
 
+                    <EditText
+                        android:id="@id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/ic_emaill"
+                        android:hint="@string/Email"
+                        android:inputType="textEmailAddress" />
+
+                    <EditText
+                        android:id="@id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/ic_lock"
+                        android:hint="@string/Password"
+                        android:inputType="textPassword" />
+
+                    <EditText
+                        android:id="@id/confiemPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/ic_lock"
+                        android:hint="@string/ConfirmPassword"
+
+                        android:inputType="textPassword" />
+
+                    <Button
+                        android:id="@+id/done"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="19dp"
+                        android:layout_marginLeft="110dp"
+                        android:layout_marginStart="110dp"
+                        android:background="@color/gray"
+                        android:text="@string/done"
+                        android:textColor="@color/yellow" />
+
+                    <TextView
+                        android:id="@+id/returned_token"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
     </ScrollView>
 
