@@ -1,5 +1,6 @@
 package com.example.lenovo.smartreaderapplication;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,6 +25,7 @@ import android.widget.ImageView;
 import android.content.pm.PackageManager;
 import android.hardware.camera2.*;
 import android.content.UriPermission;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.io.FileOutputStream;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CAMERA = 1337;
     private static final int SELECT_FILE = 2;
-
+    private int counter=0;
 
 
 
@@ -65,13 +67,21 @@ public class MainActivity extends AppCompatActivity {
         Button button= (Button) findViewById(R.id.testing);
 
 
-        textView.setText("1");
+
         button.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View view) {
-               // System.out.println("------------------h-----------------------"); this is for just testing !
-                ArraysNumbers();
 
+                try {
+                    Thread.sleep(5000);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                textView.setText("1");
+                if(counter!=0) ArraysNumbers();
+                counter++;
 
             }
         });
@@ -165,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

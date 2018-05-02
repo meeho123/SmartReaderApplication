@@ -12,15 +12,21 @@
         android:id="@+id/liOne"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:orientation="vertical" />
-    <TextView
-        android:id="@+id/testText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/viewTest"
-        android:textColor="@color/gray"
-        android:textAlignment="center"
-     />
+        android:orientation="vertical"
+        android:background="@color/yellow">
+
+        <TextView
+            android:id="@+id/testText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableLeft="@drawable/smile"
+            android:text="@string/viewTest"
+            android:textAlignment="center"
+            android:textColor="@color/gray"
+            android:textSize="17dp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/liTwo"
@@ -34,6 +40,7 @@
             android:id="@+id/viewWord"
             android:layout_width="match_parent"
             android:layout_height="43dp"
+            android:textSize="20dp"
             android:textColor="@color/pureBlue"
             android:textAlignment="center"/>
 

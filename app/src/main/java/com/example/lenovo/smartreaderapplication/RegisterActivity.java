@@ -308,7 +308,7 @@ public class RegisterActivity extends BaseActivity implements AsyncResponse{
             // web page content.
             int len = 500;
             try {
-                URL url = new URL(AUTH_TOKEN_URL);
+                URL url = new URL(AUTH_TOKEN_URL); //AUTH_TOKEN_URL=http://192.168.1.10:8000/uusapp/register/
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 Log.d(L_TAG, "url.openConnection");
                 conn.setReadTimeout(10000);

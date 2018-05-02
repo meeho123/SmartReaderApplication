@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Smart reader</string>
     <string name="title_activity_main"></string>
-    <string name="viewTest">Write the number below then take a photo of it! </string>
+    <string name="viewTest">write a number then take a photo of it! </string>
 
     <string name="title_activity_login">Sign in</string>
 
