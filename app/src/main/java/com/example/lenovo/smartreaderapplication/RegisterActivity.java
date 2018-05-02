@@ -314,6 +314,7 @@ public class RegisterActivity extends BaseActivity implements AsyncResponse{
                 conn.setReadTimeout(10000);
                 conn.setConnectTimeout(15000);
                 conn.setRequestMethod("POST");
+
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
                 Log.d(L_TAG, "Set up data unrelated headers");
